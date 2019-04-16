@@ -26,6 +26,8 @@ class Login extends Component {
     // console.log(data, meta)
     if (meta.status === 200) {
       // console.log(this.props)
+      // data 中有自带的token 将来可以用
+      localStorage.setItem('token', data.token)
       const { history } = this.props
       history.push('/')
     } else {
