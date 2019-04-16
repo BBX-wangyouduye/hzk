@@ -1,12 +1,36 @@
 import React, { Component } from 'react'
 
-import { Flex, NavBar, List, InputItem, Button,WingBlank } from 'antd-mobile';
+import { Flex, NavBar, List, InputItem, Button,WingBlank, Toast } from 'antd-mobile';
 import 'antd-mobile/dist/antd-mobile.css'
 import './Login.css'
+import axios from '../http';
 class Login extends Component {
   constructor(props) {
     super(props)
-    this.state = {}
+    this.state = {
+      uname: '',
+      pwd: ''
+    }
+  }
+  changeInputValue = (key, val) => {
+    this.setState({
+      [key]: val
+    })
+  }
+
+  handleLogin = async() => {
+    const {data:{data, meta}} = await axios.post(`users/login`, {
+      uname: this.state.uname,
+      pwd: this.state.pwd
+    })
+    // console.log(data, meta)
+    if (meta.status === 200) {
+      // console.log(this.props)
+      const { history } = this.props
+      history.push('/')
+    } else {
+      Toast.fail(meta.msg, 3)
+    }
   }
   render() {
     return (
@@ -16,10 +40,14 @@ class Login extends Component {
             <Flex.Item><NavBar mode="light">登录</NavBar></Flex.Item>
             <Flex.Item>
               <List>
-                <InputItem>姓名</InputItem>
-                <InputItem>密码</InputItem>
+                <InputItem value={this.state.uname} onChange={val => {
+                  this.changeInputValue('uname', val)
+                }}>姓名</InputItem>
+                <InputItem value={this.state.pwd} onChange={val => {
+                  this.changeInputValue('pwd', val)
+                }}>密码</InputItem>
               </List>
-              <Button type="primary">登录</Button>
+              <Button type="primary" onClick={this.handleLogin}>登录</Button>
             </Flex.Item>
           </Flex>
         </WingBlank>
