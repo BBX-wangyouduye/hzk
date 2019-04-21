@@ -19,7 +19,6 @@ class Chat extends Component {
     }
   }
   async componentDidMount() {
-    // console.log(111)
     const list = await this.getData()
     // console.log(list)
 
