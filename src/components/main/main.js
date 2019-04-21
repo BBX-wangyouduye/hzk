@@ -45,6 +45,7 @@ class Main extends Component {
   )}
   render() {
     const carouselTemplate = this.state.swipeData.map((val, i) => (
+      // eslint-disable-next-line jsx-a11y/anchor-is-valid
       <a
         key={i}
         style={{ display: 'inline-block', width: '100%', height: this.state.imgHeight }}

@@ -1,3 +1,4 @@
+/* eslint-disable no-unreachable */
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { Component } from 'react'
 import { TabBar } from 'antd-mobile'
@@ -13,12 +14,12 @@ class Home extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      selectedTab: 'Main',
+      selectedTab: 'Chat',
       hidden: false,
       fullScreen: false,
     }
   }
-  renderContent(selectKey) {
+  renderContent(tabTitle) {
     const key = this.state.selectedTab
     switch (key) {
       case 'Main':
@@ -28,12 +29,11 @@ class Home extends Component {
         return <News/>
         break
       case 'Chat':
-        return <Chat/>
+        return <Chat title={tabTitle}/>
         break
       case 'Mine':
         return <Mine/>
         break
-
       default:
         break;
     }
